@@ -7,11 +7,12 @@ class Post{
 
     public function __construct(\PDO $pdo){
         $this->pdo = $pdo;
+        $this->gm = new GlobalMethod();
 
     }
 
     public function add_user($data){
-        return "inserting....";
+        $sql = "INSERT INTO "
     
     }
 }
