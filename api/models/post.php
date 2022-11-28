@@ -9,4 +9,9 @@ class Post{
         $this->pdo = $pdo;
 
     }
+
+    public function add_user($data){
+        return "inserting....";
+    
+    }
 }

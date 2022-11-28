@@ -18,14 +18,25 @@ if(isset($_REQUEST['request'])){
 switch($_SERVER['REQUEST_METHOD']){
     // Get Requests
     case 'GET':
-        case 'users':
-            echo json_encode($get->get_users());
+        switch($request[0]){}
+            case 'users':
+                if(count($request)>1){
+                    echo json_encode($get->get_users($request[1]));
+                }else{
+                    echo json_encode($get->get_users());
+                }
+            
             break;
-        break;
+    break;
+
+    // POST Requests
+    
     case 'POST':
+        $data = json_decode(file_get_contents("php://input"));
         switch($request[0]){
             case 'adduser':
-                echo 'adduser endpoint';
+                // echo 'adduser endpoint';
+                echo json_encode($post->add_user($data));
                 break;
             case 'login':
                 echo 'login endpoint';
@@ -33,7 +44,9 @@ switch($_SERVER['REQUEST_METHOD']){
             default:
             break;
         }
-        break;
+    break;
+
+
     case 'PUT':
         echo 'this is PUT request';
         break;

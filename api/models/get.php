@@ -7,28 +7,22 @@ class Get{
 
     public function __construct(\PDO $pdo){
         $this->pdo = $pdo;
+        $this->gm = new GlobalMethod($pdo);
 
     }
 
-    public function get_users(){
-        $data = array();
-        $errmsg = "";
-
-        $sql = 'SELECT * FROM userss';
-
-        try{
-            if($result = $this->pdo->query($sql)->fetchAll()){
-                foreach($result as $record){
-                    array_push($data, $record);
-                }
-                $result = null;
-                return array("code"=>200, "data"=>$data);
-
-            }else{
-                $result = null;
-            }
-        }catch(PDOException $e){
-            return array("code"=>404, "errmsg"=>$e->getMessege);
+    public function get_users($id = null){
+        
+        $sql = "SELECT * FROM users";
+        if($id != null){
+            $sql .= " WHERE student_id = $id";
         }
+ 
+
+        $res = $this->gm->execute_query($sql);
+        if($res['code']==200){
+            return $this->gm->response_payload($res['data'], "success", "Successfully Retrieved user data.", $res['code']);
+        }
+        return $this->gm->response_payload("No data found", "failed", "Failed to Retrieved user data.", $res['code']);
     }
 }
