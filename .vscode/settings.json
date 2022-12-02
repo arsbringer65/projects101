@@ -12,6 +12,12 @@
             "database": "project101",
             "username": "root",
             "password": ""
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "SQLITE",
+            "database": "D:\\Users\\ars\\Documents\\BSCS\\Data Science\\workfiles\\movies.sqlite"
         }
     ],
     "sqltools.useNodeRuntime": true
