@@ -45,6 +45,38 @@ class Post{
         }    
     }
 
+    // public function add_queu($id){
+    //     $data = " user_id = '$user_id' ";
+    //     $data .= ", id = '$id";
+    //     $queue ="1001";
+    //     $chk = "SELECT * FROM queu WHERE id = $id";
+    //     $chk->$this->pdo->prepare($chk);
+    //     if($chk->rowCount() > 0){
+    //         $queue++;        
+    //     }
+    //     $res = $this->gm->execute_query($chk);
+
+
+
+        
+        
+
+
+    //     try{
+    //         $sql = "INSERT INTO queu(user_id, queu_no, dpt, date_time, archived)
+    //         VALUES(?,$queue,?,?,'0');";
+    //         $stmt = $this->pdo->prepare($sql);
+    //         $stmt->execute([$data->user_id,$data->dpt,$data->date_time]);
+    //         return $this->gm->response_payload($data, "success", "Succesfully added queu.", 200);
+
+               
+    //     }catch(PDOExeption $e){
+    //         return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);        
+    //     }    
+    // }
+
+
+    // login
     public function login($data)
     {
         $username = $data->email;
@@ -78,28 +110,6 @@ class Post{
         }
     }
 
-    public function delete_user($id){
-        $data = array();
-        $sql = "DELETE FROM users WHERE id = ?";
-        try{
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id]);
-            return $this->gm->response_payload(null, "success", "Succesfully deleted data.", 200);
-        }
-        catch(PDOException $e){
-            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);
-        }  
-    }
-
-    public function archived_queu($id){
-        $sql = "UPDATE queu SET archive=1 WHERE id=?";
-        try{
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id]);
-            return $this->gm->response_payload(null, "success", "Succesfully archived data.", 200);
-        }
-        catch(PDOException $e){
-            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);
-        }    
-    }
+        
+    
 }
