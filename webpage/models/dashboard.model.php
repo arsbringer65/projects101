@@ -8,6 +8,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "<td>" . $row['brgy'] . "</td>";
     echo "<td>" . $row['date'] . "</td>";
     echo "<td>" . $row['time'] . "</td>";
-    echo "</tr>";
+    ?>
+    
+    <?php echo "</tr>";
 }
 ?>

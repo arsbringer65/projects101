@@ -1,5 +1,6 @@
 <?php
-include('./components/header.php');   
+include('./components/header.php');
+include('./components/admin.nav.component.php');
 ?>
 
     <main>
