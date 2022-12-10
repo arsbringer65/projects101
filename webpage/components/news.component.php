@@ -1,5 +1,6 @@
 <?php
 ?>
+<!---------------RECENT UDPATES SIDE----------->
 <div class="discussion-board">
         <h2>Recent Updates</h2>
         <div class="discussions">

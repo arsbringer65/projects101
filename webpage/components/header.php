@@ -1,5 +1,5 @@
 <?php
-include("models/conn.php")
+include("./models/conn.php")
 ?>
 <!DOCTYPE html>
 <html lang="en">
