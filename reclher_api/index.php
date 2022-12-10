@@ -23,20 +23,28 @@ switch($_SERVER['REQUEST_METHOD']){
     // Get Requests
     case 'GET':
         switch($request[0]){
-            case 'users':
+            case 'admin':
                 if(count($request)>1){
-                    echo json_encode($get->get_users($request[1]));
+                    echo json_encode($get->get_admin($request[1]));
                 }else{
-                    echo json_encode($get->get_users());
+                    echo json_encode($get->get_admin());
                 }
             
                 break;
 
-            case 'queus':
+            case 'schedule':
                 if(count($request)>1){
-                    echo json_encode($get->get_queus($request[1]));
+                    echo json_encode($get->get_sched($request[1]));
                 }else{
-                    echo json_encode($get->get_queus());
+                    echo json_encode($get->get_sched());
+                }
+                break;
+
+            case 'news':
+                if(count($request)>1){
+                    echo json_encode($get->get_news($request[1]));
+                }else{
+                    echo json_encode($get->get_news());
                 }
             
                 break;
@@ -52,21 +60,21 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'POST':
         $data = json_decode(file_get_contents("php://input"));
         switch($request[0]){
-            case 'adduser':
-                echo json_encode($post->add_user($data));
+            case 'addadmin':
+                echo json_encode($post->add_admin($data));
                 break;
-            case 'addqueu':
-                echo json_encode($post->add_queu($data));
+            case 'addsched':
+                echo json_encode($post->add_sched($data));
                 break;
             case 'login':
                 echo json_encode($post->login($data));
                 break;
-            // case 'updateuser':
-            //     echo json_encode($update->update_user($data));
-            //     break;
-            case 'archiveuser':
-                echo json_encode($update->archived_user($data));
+            case 'addnews':
+                echo json_encode($post->add_news($data));
                 break;
+            // case 'archiveuser':
+            //     echo json_encode($update->archived_user($data));
+            //     break;
             default:
             break;
         }

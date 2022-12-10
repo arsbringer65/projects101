@@ -12,10 +12,10 @@ class Post{
     }
 
 
-    public function add_user($data){
+    public function add_admin($data){
         
-        $sql = "INSERT INTO users(fname, lname , email , student_id, password, archived)
-            VALUES('$data->fname', '$data->lname', '$data->email', '$data->student_id', ?, '0');";
+        $sql = "INSERT INTO user_admin(fname, lname , email , password, contact_no)
+            VALUES('$data->fname', '$data->lname', '$data->email', ?, '$data->contact_no');";
 
         try{
             $stmt = $this->pdo->prepare($sql);
@@ -29,14 +29,14 @@ class Post{
         }    
     }
 
-    public function add_queu($data){
+    public function add_sched($data){
         
-        $sql = "INSERT INTO queu(user_id, queu_no, dpt, date_time, archived)
-            VALUES(?,?,?,?,'0');";
+        $sql = "INSERT INTO schedule(brgy, date, time)
+            VALUES(?,?,?);";
 
         try{
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$data->user_id,$data->queu_no,$data->dpt,$data->date_time]);
+            $stmt->execute([$data->brgy, $data->date, $data->time]);
             return $this->gm->response_payload($data, "success", "Succesfully added queu.", 200);
 
                
@@ -45,43 +45,26 @@ class Post{
         }    
     }
 
-    // public function add_queu($id){
-    //     $data = " user_id = '$user_id' ";
-    //     $data .= ", id = '$id";
-    //     $queue ="1001";
-    //     $chk = "SELECT * FROM queu WHERE id = $id";
-    //     $chk->$this->pdo->prepare($chk);
-    //     if($chk->rowCount() > 0){
-    //         $queue++;        
-    //     }
-    //     $res = $this->gm->execute_query($chk);
-
-
-
+    public function add_news($data){
         
-        
+        $sql = "INSERT INTO news(content)
+            VALUES(?);";
 
-
-    //     try{
-    //         $sql = "INSERT INTO queu(user_id, queu_no, dpt, date_time, archived)
-    //         VALUES(?,$queue,?,?,'0');";
-    //         $stmt = $this->pdo->prepare($sql);
-    //         $stmt->execute([$data->user_id,$data->dpt,$data->date_time]);
-    //         return $this->gm->response_payload($data, "success", "Succesfully added queu.", 200);
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$data->content]);
+            return $this->gm->response_payload($data, "success", "Succesfully added queu.", 200);
 
                
-    //     }catch(PDOExeption $e){
-    //         return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);        
-    //     }    
-    // }
-
-
-    // login
+        }catch(PDOException $e){
+            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);        
+        }    
+    }
     public function login($data)
     {
         $username = $data->email;
         $password = $data->password;
-        $sql = "SELECT * FROM users WHERE email = ? LIMIT 1";
+        $sql = "SELECT * FROM user_admin WHERE email = ? LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
 
         try {
@@ -94,7 +77,7 @@ class Post{
                         "lname" => $res['lname'],
                         // "token" => $res['token'],
                         // "is_archived" => $res['is_archived'],
-                        "student_id" => $res['student_id']
+                        "id_no" => $res['id_no']
                     );
 
                     return $this->gm->response_payload($data, "success", "Succesfully logged in.", 200);

@@ -10,4 +10,7 @@ VALUES ('Kiane', 'Alceso', '201910320@mail.com', '201910320', '12345678'), ('Abd
 --@block Delete
 DELETE FROM users WHERE id = "11";
 
+--@block
+SELECT * FROM queu WHERE archived = 0
+
 
