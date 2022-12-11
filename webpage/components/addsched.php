@@ -16,5 +16,5 @@
     <input type="date" name="date_collection" id="date_collection">
     <label for="collectiontime">Time</label>
     <input type="time" name="time_collection" id="time_collection">
-    <input type="submit" value="addsched" name="addsched">
+    <input type="submit" value="addsched" name="submit">
 </form>

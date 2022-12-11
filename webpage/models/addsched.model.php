@@ -19,7 +19,10 @@ if (isset($_POST['addsched'])) {
 	$sql = "INSERT INTO schedule (brgy, date, time) VALUES (:barangay, :date_collection, :time_collection)";
 
 	// Prepare the SQL query
-	$stmt = $pdo->prepare($sql);
+	if(!$stmt = $pdo->prepare($sql)){
+		header("Location: ../register.php?=error=sqlerror");
+	}
+	// $stmt = $pdo->prepare($sql);
 
 	// Bind the parameters to the query
 	$stmt->bindParam(':barangay', $brgy);
@@ -30,7 +33,8 @@ if (isset($_POST['addsched'])) {
 	$stmt->execute();
 
 	// Print a message
-	echo "User added successfully!";
+	// echo "User added successfully!";
+	header("Location: ../index.php?registered_successfully");
 }
 
 

@@ -10,7 +10,8 @@ include('./components/admin.nav.component.php');
           <!-- Adding Schedules -->
         <?php
         include('./components/addsched.php');
-        include('./components/dashboard.component.php')
+        include('./components/dashboard.component.php');
+        include('./components/deletesched.component.php');
         ?>
         
         </div>
