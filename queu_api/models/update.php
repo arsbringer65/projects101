@@ -12,8 +12,20 @@ class Update{
     }
 
     // Archive Queus
-    public function archived_queu($id){
-        $sql = "UPDATE queu SET archive=1 WHERE id=?";
+    public function approve_request($id){
+        $sql = "UPDATE request SET approve='accepted' WHERE id=?";
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            return $this->gm->response_payload(null, "success", "Succesfully archived data.", 200);
+        }
+        catch(PDOException $e){
+            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);
+        }    
+    }
+
+    public function reject_request($id){
+        $sql = "UPDATE request SET approve='rejected' WHERE id=?";
         try{
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$id]);
@@ -25,7 +37,7 @@ class Update{
     }
 
     public function archived_user($id){
-        $sql = "UPDATE users SET archived=1 WHERE id=?";
+        $sql = "UPDATE employees SET archived=1 WHERE id=?";
         try{
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$id]);

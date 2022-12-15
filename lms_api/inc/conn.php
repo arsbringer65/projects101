@@ -8,7 +8,7 @@ date_default_timezone_set("Asia/Manila");
 set_time_limit(1000);
 
 define("SERVER", "localhost");
-define("DBASE", "project101");
+define("DBASE", "repose");
 define("USER", "root");
 define("PWORD", "");
 

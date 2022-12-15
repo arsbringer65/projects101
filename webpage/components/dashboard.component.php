@@ -14,8 +14,6 @@
 
         <?php
         include('./models/dashboard.model.php')
-
-
-            ?>
+        ?>
 
     </table>

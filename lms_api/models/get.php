@@ -11,34 +11,49 @@ class Get{
 
     }
 
-    public function get_users($id = null){
+    public function get_employees($id = null){
         
-        $sql = "SELECT * FROM users WHERE archived= 0";
+        $sql = "SELECT * FROM employees";
         if($id != null){
-            $sql .= " AND student_id = $id";
+            $sql .= " WHERE id = $id";
         }
  
 
         $res = $this->gm->execute_query($sql);
         if($res['code']==200){
-            return $this->gm->response_payload($res['data'], "success", "Successfully Retrieved user data.", $res['code']);
+            return $this->gm->response_payload($res['data'], "success", "Successfully Retrieved employee data.", $res['code']);
         }
-        return $this->gm->response_payload("No data found", "failed", "Failed to Retrieved user data.", $res['code']);
+        return $this->gm->response_payload("No data found", "failed", "Failed to Retrieved employee data.", $res['code']);
     }
 
-    public function get_queus($id = null){
+    public function get_request($id = null){
         
-        $sql = "SELECT * FROM queu WHERE archived = 0";
+        $sql = "SELECT * FROM request";
         if($id != null){
-            $sql .= " AND user_id = $id";
+            $sql .= " WHERE user_id = $id";
         }
  
 
         $res = $this->gm->execute_query($sql);
         if($res['code']==200){
-            return $this->gm->response_payload($res['data'], "success", "Successfully Retrieved queu data.", $res['code']);
+            return $this->gm->response_payload($res['data'], "success", "Successfully Retrieved request data.", $res['code']);
         }
-        return $this->gm->response_payload("No data found", "failed", "Failed to Retrieved queu data.", $res['code']);
+        return $this->gm->response_payload("No data found", "failed", "Failed to Retrieved request data.", $res['code']);
+    }
+
+    public function get_admin($id = null){
+        
+        $sql = "SELECT * FROM admin";
+        if($id != null){
+            $sql .= " WHERE id = $id";
+        }
+ 
+
+        $res = $this->gm->execute_query($sql);
+        if($res['code']==200){
+            return $this->gm->response_payload($res['data'], "success", "Successfully Retrieved admin data.", $res['code']);
+        }
+        return $this->gm->response_payload("No data found", "failed", "Failed to Retrieved admin data.", $res['code']);
     }
 
 

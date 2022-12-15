@@ -12,10 +12,10 @@ class Post{
     }
 
 
-    public function add_user($data){
+    public function add_employee($data){
         
-        $sql = "INSERT INTO users(fname, lname , email , student_id, password, archived)
-            VALUES('$data->fname', '$data->lname', '$data->email', '$data->student_id', ?, '0');";
+        $sql = "INSERT INTO employees(fname, lname , email , dpt, position, password)
+            VALUES('$data->fname', '$data->lname', '$data->email', '$data->dpt', '$data->position', ?);";
 
         try{
             $stmt = $this->pdo->prepare($sql);
@@ -24,23 +24,40 @@ class Post{
             return $this->gm->response_payload($data, "success", "Succesfully added user.", 200);
 
                
-        }catch(PDOExeption $e){
+        }catch(PDOException $e){
             return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);        
         }    
     }
 
-    public function add_queu($data){
+    public function add_admin($data){
         
-        $sql = "INSERT INTO queu(user_id, queu_no, dpt, date_time, archived)
-            VALUES(?,?,?,?,'0');";
+        $sql = "INSERT INTO admins(fname, lname , email , password)
+            VALUES('$data->fname', '$data->lname', '$data->email', ?);";
 
         try{
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$data->user_id,$data->queu_no,$data->dpt,$data->date_time]);
+            $data->password = password_hash($data->password, PASSWORD_DEFAULT);
+            $stmt->execute([$data->password]);
+            return $this->gm->response_payload($data, "success", "Succesfully added admin.", 200);
+
+               
+        }catch(PDOException $e){
+            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);        
+        }    
+    }
+
+    public function add_request($data){
+        
+        $sql = "INSERT INTO request(user_id, leave_type, approve)
+            VALUES(?,?,'pending');";
+
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$data->user_id,$data->leave_type]);
             return $this->gm->response_payload($data, "success", "Succesfully added queu.", 200);
 
                
-        }catch(PDOExeption $e){
+        }catch(PDOException $e){
             return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);        
         }    
     }
@@ -49,7 +66,7 @@ class Post{
     {
         $username = $data->email;
         $password = $data->password;
-        $sql = "SELECT * FROM users WHERE email = ? LIMIT 1";
+        $sql = "SELECT * FROM employees WHERE email = ? LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
 
         try {
@@ -60,9 +77,7 @@ class Post{
                     $data = array(
                         "fname" => $res['fname'],
                         "lname" => $res['lname'],
-                        // "token" => $res['token'],
-                        // "is_archived" => $res['is_archived'],
-                        "student_id" => $res['student_id']
+                        "position" => $res['position']
                     );
 
                     return $this->gm->response_payload($data, "success", "Succesfully logged in.", 200);
@@ -78,28 +93,33 @@ class Post{
         }
     }
 
-    public function delete_user($id){
-        $data = array();
-        $sql = "DELETE FROM users WHERE id = ?";
-        try{
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id]);
-            return $this->gm->response_payload(null, "success", "Succesfully deleted data.", 200);
-        }
-        catch(PDOException $e){
-            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);
-        }  
-    }
+    
 
-    public function archived_queu($id){
-        $sql = "UPDATE queu SET archive=1 WHERE id=?";
+    public function approve_request($data, $id){
+        // $approve = "approved";
+        $sql = "UPDATE request SET approve=? WHERE id=?";
         try{
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id]);
-            return $this->gm->response_payload(null, "success", "Succesfully archived data.", 200);
+            $stmt->execute([$data->approve,$id]);
+            return $this->gm->response_payload(null, "success", "Succesfully approved.", 200);
         }
         catch(PDOException $e){
             return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);
         }    
     }
+
+    public function edit_request($data, $id){
+        // $approve = "approved";
+        $sql = "UPDATE request SET leave_type=?, starting_time=?, ending_time=? WHERE id=?";
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$data->leave_type, $data->starting_time, $data->ending_time, $id]);
+            return $this->gm->response_payload(null, "success", "Succesfully approved.", 200);
+        }
+        catch(PDOException $e){
+            return $this->gm->response_payload(null, "failed", $e->getMessage(), 400);
+        }    
+    }
+
+    
 }
