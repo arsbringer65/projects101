@@ -1,0 +1,18 @@
+.App {
+  /* display: flex; */
+  
+  background-color: rgb(19, 109, 189);
+}
+
+.header{  
+  background-color: aliceblue;
+}
+
+.main{
+  background-color: rgb(170, 198, 223);
+}
+
+.footer{
+  
+}
+
