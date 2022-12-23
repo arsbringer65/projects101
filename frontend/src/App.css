@@ -1,18 +1,12 @@
 .App {
-  /* display: flex; */
-  
-  background-color: rgb(19, 109, 189);
+    text-align: center;
 }
 
-.header{  
-  background-color: aliceblue;
+nav ul {
+    list-style: none;
 }
 
-.main{
-  background-color: rgb(170, 198, 223);
+nav ul li {
+    display: inline-block;
+    padding: 10px;
 }
-
-.footer{
-  
-}
-

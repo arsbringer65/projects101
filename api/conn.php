@@ -2,7 +2,7 @@
 	/**
 	* Database Connection
 	*/
-	class Connection {
+	class DbConnect {
 		private $server = 'localhost';
 		private $dbname = 'project101';
 		private $user = 'root';

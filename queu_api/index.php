@@ -1,10 +1,19 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: *");
+
+
 require_once './inc/conn.php';
 require_once './models/get.php';
 require_once './models/post.php';
 require_once './models/global.php';
 require_once './models/delete.php';
 require_once './models/update.php';
+
 $db = new Connection();
 $pdo = $db->connect();
 $get = new Get($pdo);
@@ -13,45 +22,44 @@ $delete = new Delete($pdo);
 $update = new Update($pdo);
 $gm = new GlobalMethod($pdo);
 
-if(isset($_REQUEST['request'])){
+if (isset($_REQUEST['request'])) {
     $request = explode('/', $_REQUEST['request']);
-}else{
+} else {
     http_response_code(404);
 }
 
-switch($_SERVER['REQUEST_METHOD']){
-    // Get Requests
+switch ($_SERVER['REQUEST_METHOD']) {
+        // Get Requests
     case 'GET':
-        switch($request[0]){
+        switch ($request[0]) {
             case 'users':
-                if(count($request)>1){
+                if (count($request) > 1) {
                     echo json_encode($get->get_users($request[1]));
-                }else{
+                } else {
                     echo json_encode($get->get_users());
                 }
-            
+
                 break;
 
             case 'queus':
-                if(count($request)>1){
+                if (count($request) > 1) {
                     echo json_encode($get->get_queus($request[1]));
-                }else{
+                } else {
                     echo json_encode($get->get_queus());
                 }
-            
+
                 break;
             default:
-            break;
-        
+                break;
         }
-            
-    break;
 
-    // POST Requests
-    
+        break;
+
+        // POST Requests
+
     case 'POST':
         $data = json_decode(file_get_contents("php://input"));
-        switch($request[0]){
+        switch ($request[0]) {
             case 'adduser':
                 echo json_encode($post->add_user($data));
                 break;
@@ -61,27 +69,24 @@ switch($_SERVER['REQUEST_METHOD']){
             case 'login':
                 echo json_encode($post->login($data));
                 break;
-            // case 'updateuser':
-            //     echo json_encode($update->update_user($data));
-            //     break;
             case 'archiveuser':
                 echo json_encode($update->archived_user($data));
                 break;
             default:
-            break;
+                break;
         }
-    break;
+        break;
 
     case 'DELETE':
-        switch($request[0]){
+        switch ($request[0]) {
             case 'deleteuser':
                 echo json_encode($delete->delete_user($request[1]));
-            break;
+                break;
             case 'deletequeue':
                 echo json_encode($delete->delete_queue($request[1]));
-            break;
+                break;
             default:
-            break;
+                break;
         }
         break;
     case 'PUT':
@@ -90,9 +95,8 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'PATCH':
         echo 'this is PATCH request';
         break;
-    
-    default:
-    http_response_code(403);
-    break;
-}
 
+    default:
+        http_response_code(403);
+        break;
+}
