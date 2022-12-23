@@ -10,11 +10,11 @@ export default function ListUser() {
   const { id } = useParams();
 
   useEffect(() => {
-    getUser();
+    getQueue();
   }, []);
 
-  function getUser() {
-    axios.get(`http://localhost:8888/api/user/${id}`).then(function (response) {
+  function getQueue() {
+    axios.get(`http://localhost:8888/api/queue/${id}`).then(function (response) {
       console.log(response.data);
       setInputs(response.data);
     });
@@ -69,13 +69,13 @@ export default function ListUser() {
             </tr>
             <tr>
               <th>
-                <label>Mobile: </label>
+                <label>Department: </label>
               </th>
               <td>
                 <input
-                  value={inputs.mobile}
+                  value={inputs.dpt}
                   type="text"
-                  name="mobile"
+                  name="dpt"
                   onChange={handleChange}
                 />
               </td>

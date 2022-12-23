@@ -16,7 +16,7 @@ export default function ListUser() {
     event.preventDefault();
 
     axios
-      .post("http://localhost/projects101/api/queue/save/", inputs)
+      .post("http://localhost/projects101/api/queues/save/", inputs)
       .then(function (response) {
         console.log(response.data);
         navigate("/");
@@ -24,7 +24,7 @@ export default function ListUser() {
   };
   return (
     <div>
-      <h1>Create user</h1>
+      <h1>Create Queue</h1>
       <form onSubmit={handleSubmit}>
         <table cellSpacing="10">
           <tbody>
@@ -41,13 +41,13 @@ export default function ListUser() {
                 <label>Email: </label>
               </th>
               <td>
-                <input type="text" name="email" onChange={handleChange} />
+                <input type="text" name="email" onChange={handleChange} required/>
               </td>
             </tr>
 
             <tr>
               <td>
-                <input type="hidden" name="queu_no" onChange={handleChange} />
+                <input type="hidden" name="queu_no" onChange={handleChange} required/>
               </td>
             </tr>
 
@@ -56,7 +56,8 @@ export default function ListUser() {
                 <label>Department: </label>
               </th>
               <td>
-                <select name="dpt" id="dpt" onChange={handleChange}>
+                <select name="dpt" id="dpt" onChange={handleChange} required>
+                  <option >Please Choose where to Queue</option>
                   <option value="GC Clinic">GC CLINIC</option>
                   <option value="CO-OP">CO-OP</option>
                   <option value="REGISTRAR">REGISTRAR</option>

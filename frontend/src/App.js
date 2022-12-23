@@ -16,14 +16,14 @@ function App() {
               <Link to="/">Queues</Link>
             </li>
             <li>
-              <Link to="user/create">Create Queues</Link>
+              <Link to="queue/create">Create Queues</Link>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route index element={<ListQueue />} />
-          <Route path="user/create" element={<CreateQueue />} />
-          <Route path="user/:id/edit" element={<EditQueue />} />
+          <Route path="queue/create" element={<CreateQueue />} />
+          <Route path="queue/:id/edit" element={<EditQueue />} />
         </Routes>
       </BrowserRouter>
     </div>
