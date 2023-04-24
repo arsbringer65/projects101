@@ -1,0 +1,32 @@
+var hamburger = document.querySelector(".hamburger");
+hamburger.addEventListener("click", function(){
+  document.querySelector("body").classList.toggle("active");
+})
+
+function toggleSidebar() {
+  var main = document.getElementById("main");
+  var sidebar = document.getElementById("sidebar");
+  if (sidebar.style.display === "none") {
+    main.classList.add("main-open");
+    sidebar.style.display = "block";
+  } else {
+    main.classList.remove("main-open");
+    sidebar.style.display = "none";
+  }
+}
+
+displayTimeAndDateInWords();
+function displayTimeAndDateInWords() {
+  var today = new Date();
+  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var dateInWords = days[today.getDay()] + ', ' + months[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear();
+  var hours = today.getHours();
+  var minutes = today.getMinutes();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; 
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  var timeInWords = hours + ':' + minutes + ' ' + ampm;
+  document.getElementById('time-date').innerHTML =  ' ' + dateInWords + ' , ' + timeInWords ;
+}

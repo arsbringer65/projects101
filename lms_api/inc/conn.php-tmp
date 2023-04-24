@@ -1,0 +1,67 @@
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_bz2.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_curl.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_fileinfo.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_gd2.dll' - The specified module could not be found.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_gettext.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_mbstring.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_exif.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_mysqli.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_pdo_mysql.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_pdo_sqlite.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_openssl.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library '\xampp\php\ext\php_ftp.dll' - %1 is not a valid Win32 application.
+ in Unknown on line 0
+<?php
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST");
+header("Content-Type: application/json; charset=utf8");
+
+date_default_timezone_set("Asia/Manila");
+set_time_limit(1000);
+
+define("SERVER", "localhost");
+define("DBASE", "project101");
+define("USER", "root");
+define("PWORD", "");
+
+class Connection {
+	// "mysql:host=localhost;dbname=sample_elective;charset=utf8mb4"
+	protected $con_string = "mysql:host=".SERVER.";dbname=".DBASE.";charset=utf8mb4";
+
+	protected $options = [
+		\PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
+		\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+		\PDO::ATTR_EMULATE_PREPARES   => false
+	];
+
+	public function connect() {
+		return new \PDO($this->con_string, USER, PWORD, $this->options);
+	}
+
+}
+
+?>
